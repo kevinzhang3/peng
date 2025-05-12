@@ -1,6 +1,6 @@
 # Compiler and flags
 CXX = clang++
-CXXFLAGS = -Wall -Wextra -std=c++20 -O2
+CXXFLAGS = -Wall -Iincludes -Wextra -std=c++20 -O2 
 
 # Source and object files
 SRCS = Sim.cpp

@@ -5,10 +5,14 @@
 
 struct Body {
     Body() {}
-    Body(Vec2 position, Vec2 velocity, Vec2 mass) {}
+    Body(Vec2 p, Vec2 v, float m) {
+        position = p;
+        velocity = v;
+        mass = m;
+    } 
     Vec2 position;
     Vec2 velocity;
-    Vec2 mass;
+    float mass;
 };
 
 #endif
