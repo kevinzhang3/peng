@@ -3,11 +3,11 @@ CXX = clang++
 CXXFLAGS = -Wall -Wextra -std=c++20 -O2
 
 # Source and object files
-SRCS = main.cpp
-OBJS = build/main.o
+SRCS = Sim.cpp
+OBJS = build/Sim.o
 
 # Output binary
-TARGET = main
+TARGET = Sim
 
 # Default target
 all: $(TARGET)
