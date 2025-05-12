@@ -1,3 +1,5 @@
+#ifndef BODY_H
+#define BODY_H
 
 #include "Vec2.h"
 
@@ -8,3 +10,5 @@ struct Body {
     Vec2 velocity;
     Vec2 mass;
 };
+
+#endif
