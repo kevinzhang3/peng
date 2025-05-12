@@ -3,7 +3,11 @@
 #include <Body.h>
 
 Body ComputeForce() {
-    return Body();
+    Vec2 p, v, m;
+
+    p = Vec2(0, 0);
+
+    return Body(p, v, m);
 }
 
 int main(void) {
