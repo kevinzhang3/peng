@@ -7,7 +7,7 @@ SRCS = Sim.cpp
 OBJS = build/Sim.o
 
 # Output binary
-TARGET = Sim
+TARGET = sim
 
 # Default target
 all: $(TARGET)
