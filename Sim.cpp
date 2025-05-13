@@ -17,13 +17,13 @@ void InitBodies(void) {
     }
 } 
 
-Body ComputeForce(Body& b) {
+Vec2 ComputeForce(Body& b) {
+    return Vec2(0, b.mass * -9.81);
+}
+
+Vec2 ComputeAcceleration(Body& b) {
     Vec2 p, v;
-
-    p = Vec2(0, 0);
-    v = Vec2(0, b.mass * -9.81);
-
-    return Body(p, v, 0);
+    return Vec2(0, -9.81);
 }
 
 void PrintBody(Body& b) {
@@ -38,7 +38,10 @@ int main(void) {
     InitBodies();
     while (currTime < TIME_LIM) {
         for (int i = 0; i < NUM_BODIES; ++i) {
-            Body acceleration = ComputeForce(bodies[i]);
+            Vec2 force = ComputeForce(bodies[i]);
+            Vec2 acceleration = ComputeAcceleration(bodies[i]);
+            bodies[i].velocity += acceleration * dt;
+
         }
     }
 
