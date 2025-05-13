@@ -20,12 +20,12 @@ struct Vec2 {
     }
 
     /* define the operators on Vec2 data type */
-    void operator -= (Vec2 &vec) {
+    void operator -= (Vec2& vec) {
         x -= vec.x;
         y -= vec.y;
     }
     
-    void operator += (Vec2 &vec) {
+    void operator += (Vec2& vec) {
         x += vec.x;
         y += vec.y;
     }
