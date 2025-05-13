@@ -3,8 +3,9 @@
 #include <Body.h>
 
 #define NUM_BODIES 1
+#define TIME_LIM   20
 
-Body Bodies[NUM_BODIES];
+Body bodies[NUM_BODIES];
 
 /* initialize the bodies */
 void InitBodies(void) {
@@ -12,7 +13,7 @@ void InitBodies(void) {
         Vec2 p, v;
         p = Vec2((rand() % 10) + 1, (rand() % 10) + 1);
         v = Vec2(0, 0);
-        Bodies[i] = Body(p, v, 1);
+        bodies[i] = Body(p, v, 1);
     }
 } 
 
@@ -25,11 +26,21 @@ Body ComputeForce(Body& b) {
     return Body(p, v, 0);
 }
 
+void PrintBody(Body& b) {
+    std::cout << "Position: " << b.position;
+}
+
 int main(void) {
-    Body b;
-
+    float currTime = 0, dt = 1; 
     std::cout << "SIMULATION:\n";
+    
 
+    InitBodies();
+    while (currTime < TIME_LIM) {
+        for (int i = 0; i < NUM_BODIES; ++i) {
+            Body acceleration = ComputeForce(bodies[i]);
+        }
+    }
 
     return 0;
 }
