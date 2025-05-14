@@ -1,9 +1,10 @@
 #include <iostream>
+#include <unistd.h>
 #include <Vec2.h>
 #include <Body.h>
 
 #define NUM_BODIES 1
-#define TIME_LIM   20
+#define TIME_LIM   5
 
 Body bodies[NUM_BODIES];
 
@@ -26,10 +27,6 @@ Vec2 ComputeAcceleration(Body& b) {
     return Vec2(0, -9.81);
 }
 
-void PrintBody(Body& b) {
-    std::cout << "Position: " << b.position;
-}
-
 int main(void) {
     float currTime = 0, dt = 1; 
     std::cout << "SIMULATION:\n";
@@ -37,12 +34,25 @@ int main(void) {
 
     InitBodies();
     while (currTime < TIME_LIM) {
+
+        sleep(dt);
+
         for (int i = 0; i < NUM_BODIES; ++i) {
             Vec2 force = ComputeForce(bodies[i]);
+            
             Vec2 acceleration = ComputeAcceleration(bodies[i]);
-            bodies[i].velocity += acceleration * dt;
+            
+            Vec2 delta_v = acceleration * dt;
+            
+            bodies[i].velocity += delta_v;
+            
+            Vec2 displacement = bodies[i].velocity * dt; 
+            
+            bodies[i].position += displacement;
 
+            std::cout << "Position: " << bodies[i].position.toString() << " Time: " << currTime << std::endl;
         }
+        currTime += dt;
     }
 
     return 0;
