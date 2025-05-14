@@ -6,18 +6,13 @@
 struct Body {
     Body() {}
 
-    Body(Vec2 p, Vec2 v, float m, float r) {
+    Body(Vec2 p, Vec2 v) {
         position = p;
-        velocity = v;
-        mass = m;
-        radius = r;
+        l_velocity = v;
     } 
     
-    Vec2 position;
-    
-    Vec2 velocity;
-    
-    float mass, radius;
+    Vec2 position, l_velocity, force;
+    float torque, angle, a_velocity;
 };
 
 #endif
