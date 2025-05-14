@@ -3,7 +3,7 @@ CXX = clang++
 CXXFLAGS = -Wall -Iincludes -g -Wextra -std=c++20  
 
 # Source and object files
-SRCS = Sim.cpp
+SRCS = src/Sim.cpp
 OBJS = build/Sim.o
 
 # Output binary
@@ -20,7 +20,7 @@ $(TARGET): $(OBJS) | build
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
 # Compile source files to object files
-build/%.o: %.cpp | build
+build/%.o: src/%.cpp | build
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up build artifacts
