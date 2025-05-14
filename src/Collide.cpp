@@ -1,4 +1,5 @@
 #include <Body.h>
+#include <Util.h>
 
 int CollideBody(Body& a, Body& b) {
     // explosion
@@ -6,6 +7,6 @@ int CollideBody(Body& a, Body& b) {
 }
 
 int CollideBarrier(Body& a) {
-    // boom
+    
     return 0;
 }

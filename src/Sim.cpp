@@ -2,11 +2,10 @@
 #include <unistd.h>
 #include <Vec2.h>
 #include <Body.h>
+#include <Util.h>
 
 #define NUM_BODIES 1
 #define TIME_LIM   5
-#define X_BORDER   400
-#define Y_BORDER   400
 
 Body bodies[NUM_BODIES];
 
