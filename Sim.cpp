@@ -24,8 +24,9 @@ Vec2 ComputeForce(Body& b) {
     return Vec2(0, b.mass * -9.81);
 }
 
+/* placeholder */
 Vec2 ComputeAcceleration(Body& b) {
-    return Vec2(0, -9.81);
+    return b.position;
 }
 
 int main(void) {
@@ -39,9 +40,9 @@ int main(void) {
         sleep(dt);
 
         for (int i = 0; i < NUM_BODIES; ++i) {
-            Vec2 force = ComputeForce(bodies[i]);
+            // Vec2 force = ComputeForce(bodies[i]);
             
-            Vec2 acceleration = ComputeAcceleration(bodies[i]);
+            Vec2 acceleration = Vec2(0, -9.81);
             
             Vec2 delta_v = acceleration * dt;
             
