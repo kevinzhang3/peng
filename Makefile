@@ -1,6 +1,7 @@
 # Compiler and flags
 CXX = clang++
-CXXFLAGS = -Wall -Iinclude -g -Wextra -std=c++20  
+CXXFLAGS = -Wall -Iinclude -I/opt/homebrew/include -g -Wextra -std=c++20  
+LDFLAGS = -L/opt/homebrew/lib -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl 
 
 # Source and object files
 SRCS = src/Sim.cpp
@@ -17,7 +18,7 @@ build:
 
 # Link the object files into the final binary
 $(TARGET): $(OBJS) | build
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CXX) $(LDFLAGS) $(CXXFLAGS) -o $@ $^
 
 # Compile source files to object files
 build/%.o: src/%.cpp | build
