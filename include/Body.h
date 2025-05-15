@@ -44,10 +44,19 @@ struct Box : public Body {
         torque = 0;
         angle = 0;
         a_velocity = 0;
+        com = 0;
         m_inertia = m * (w * w + h * h) / 12;
     }
 
-    float height, width;
+    void ComputeTorque(Vec2 force, Vec2 r) {
+        torque = r.x * force.y - r.y * force.x;
+    }
+
+    float height;
+    
+    float width;
+    
+    float com;
 };
 
 struct Circle : public Body {
