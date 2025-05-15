@@ -3,10 +3,21 @@
 
 struct Shape {
     float mass, m_intertia;
+
+
 };
 
 struct Box : public Shape {
-    float h, w;
+    Box() {};
+
+    Box(float h, float w, float m, float mi) {
+        height = h;
+        width = w;
+        mass = m;
+        m_intertia = m * (w * w + h * h) / 12;
+    }
+
+    float height, width;
 };
 
 struct Circle : public Shape {
