@@ -35,10 +35,15 @@ struct Body {
 struct Box : public Body {
     Box() {};
 
-    Box(float h, float w, float m, float mi) {
+    Box(Vec2 p, Vec2 v, float h, float w, float m) {
         height = h;
         width = w;
         mass = m;
+        position = p;
+        l_velocity = v;
+        torque = 0;
+        angle = 0;
+        a_velocity = 0;
         m_inertia = m * (w * w + h * h) / 12;
     }
 

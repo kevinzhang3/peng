@@ -6,7 +6,7 @@
 
 // 2d vector class
 struct Vec2 {
-    Vec2() :x(0), y(0) {} // default constructor 
+    Vec2() : x(0), y(0) {} // default constructor 
     
     Vec2(float x, float y) : x(x), y(y) {} // parameterized constructor
     
