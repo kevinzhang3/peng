@@ -1,18 +1,18 @@
 CXX = clang++
 CC = clang
 
-CXXFLAGS = -Wall -Iinclude -I/opt/homebrew/include -g -Wextra -std=c++20
-CFLAGS = -Wall -Iinclude -I/opt/homebrew/include -g -Wextra
+CXXFLAGS = -Wall -Iinclude -I/opt/homebrew/include -Iextern -g -Wextra -std=c++20
+CFLAGS = -Wall -Iinclude -I/opt/homebrew/include -Iextern -g -Wextra
 
 LDFLAGS = -L/opt/homebrew/lib -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
 
 CPPSRCS = src/Sim.cpp
-CSRCS = src/glad.c
+CSRCS = extern/glad.c
 SRCS = $(CPPSRCS) $(CSRCS)
 
-OBJS = $(CPPSRCS:src/%.cpp=build/%.o) $(CSRCS:src/%.c=build/%.o)
+OBJS = $(CPPSRCS:src/%.cpp=build/%.o) build/glad.o
 
-TARGET = sim
+TARGET = run
 
 all: $(TARGET)
 
@@ -25,7 +25,7 @@ $(TARGET): $(OBJS) | build
 build/%.o: src/%.cpp | build
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-build/%.o: src/%.c | build
+build/glad.o: extern/glad.c | build
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
