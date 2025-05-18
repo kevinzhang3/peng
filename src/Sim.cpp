@@ -44,7 +44,9 @@ int main(void) {
     // render loop
     while(!glfwWindowShouldClose(window)) {
         glfwSwapBuffers(window);
-        glfwPollEvents();    
+        glfwPollEvents();
+    
+        //draw circle 
     }
 
     glfwTerminate();
