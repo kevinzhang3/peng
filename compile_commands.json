@@ -1,0 +1,13 @@
+[
+  {
+    "directory": "/home/kz3/peng",
+    "command": "clang++ -Wall -Iinclude -I/opt/homebrew/include -Iextern -g -Wextra -std=c++20 -c src/Sim.cpp -o build/Sim.o",
+    "file": "src/Sim.cpp"
+  },
+  {
+    "directory": "/home/kz3/peng",
+    "command": "clang -Wall -Iinclude -I/opt/homebrew/include -Iextern -g -Wextra -c extern/glad.c -o build/glad.o",
+    "file": "extern/glad.c"
+  }
+]
+
