@@ -42,11 +42,33 @@ int main(void) {
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
     // render loop
+    
+    // square
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        -0.5f,  0.5f, 0.0f,
+        0.5f, 0.5f, 0.0f
+    };
+
+    // vertex buffer object
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+
+    // bind VBO to buffer 
+    // (any calls on buffer are done on the currently bound buffer)
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    
+    // copy our vertices into the bound buffer
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+
+    
     while(!glfwWindowShouldClose(window)) {
         glfwSwapBuffers(window);
         glfwPollEvents();
     
-        //draw circle 
+        //draw  
     }
 
     glfwTerminate();
