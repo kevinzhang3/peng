@@ -10,14 +10,24 @@
 #define NUM_BODIES 1
 #define TIME_LIM   5
 
+// GLSL (goofy)
+const char *vertexShaderSource = "#version 330 core\n"
+    "layout (location = 0) in vec3 aPos;\n"
+    "void main()\n"
+    "{\n"
+    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "}\0";
+
 Body bodies[NUM_BODIES];
 
+// for dynamically resizing the window
 void framebuffer_size_callback(GLFWwindow*, int width, int height) {
     glViewport(0, 0, width, height);
 }
 
 int main(void) {
-    std::cout << "Init window...\n";
+
+// ------------------------------- WINDOW ----------------------------------- //
 
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -41,7 +51,7 @@ int main(void) {
     
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    // render loop
+// -------------------------------------------------------------------------- //    
     
     // square
     float vertices[] = {
@@ -51,17 +61,27 @@ int main(void) {
         0.5f, 0.5f, 0.0f
     };
 
-    // vertex buffer object
+    // vertex buffer and shader obj ids
     unsigned int VBO;
-    glGenBuffers(1, &VBO);
+    unsigned int vertexShader;
+    int success;
+    char infoLog[512];
 
-    // bind VBO to buffer 
-    // (any calls on buffer are done on the currently bound buffer)
+   
+    // generating buffer, binding it, and putting our vertices into the buf
+    glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    
-    // copy our vertices into the bound buffer
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
+    // attach our shader obj and compile it 
+    vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (success) {
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTeX::COMPILATION_FAILED\n" << infoLog <<std::endl;
+    }
 
     
     while(!glfwWindowShouldClose(window)) {
