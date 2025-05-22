@@ -70,9 +70,11 @@ int main(void) {
     // vertex buffer ref id
     unsigned int VBO;
     
-    // shader ref ids
+    // shader stuff
     unsigned int vertexShader;
     unsigned int fragmentShader;
+    unsigned int shaderProgram;
+
     int success;
     char infoLog[512];
 
@@ -92,15 +94,26 @@ int main(void) {
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
     if (success) {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTeX::COMPILATION_FAILED\n" << infoLog <<std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog <<std::endl;
     }
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
     if (success) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTeX::COMPILATION_FAILED\n" << infoLog <<std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<std::endl;
     }
 
-    
+    // linking the shader 
+    shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);   
+    glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+    if(!success) {
+        glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog <<std::endl;
+    }
+
+
     while(!glfwWindowShouldClose(window)) {
         glfwSwapBuffers(window);
         glfwPollEvents();
