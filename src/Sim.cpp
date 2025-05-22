@@ -59,17 +59,17 @@ int main(void) {
 
 // -------------------------------------------------------------------------- //    
     
-    // square
+    // triangle
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
-        0.5f, 0.5f, 0.0f
+        0.0f, 0.5f, 0.0f
     };
 
-    // vertex buffer ref id
+    // buffer ref id
     unsigned int VBO;
-    
+    unsigned int VAO;
+
     // shader stuff
     unsigned int vertexShader;
     unsigned int fragmentShader;
@@ -81,6 +81,7 @@ int main(void) {
    
     // generating buffer id, binding it, and putting our vertices into the buf
     glGenBuffers(1, &VBO);
+    glGenVertexArrays(1, &VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
@@ -112,12 +113,22 @@ int main(void) {
         glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED\n" << infoLog <<std::endl;
     }
+    
+    // use program and delete unused shaders (no longer need)
+    glDeleteShader(vertexShader);
+    glDeleteShader(vertexShader);
+
+    // tell opengl how to interpret the data (vertices) in the VBO
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0); 
+    glEnableVertexAttribArray(0);
+
 
 
     while(!glfwWindowShouldClose(window)) {
         glfwSwapBuffers(window);
         glfwPollEvents();
-    
+        glUseProgram(shaderProgram);
+        glBindVertexArray(VAO);
         //draw  
     }
 
