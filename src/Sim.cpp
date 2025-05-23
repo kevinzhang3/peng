@@ -20,7 +20,8 @@ const char *vertexShaderSource = "#version 330 core\n"
 
 const char *fragmentShaderSource = "#version 330 core\n"
     "out vec4 FragColor;\n"
-    "void main() {\n"
+    "void main()\n" 
+    "{\n"
     "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
     "}\0";
 
@@ -29,6 +30,12 @@ Body bodies[NUM_BODIES];
 // for dynamically resizing the window
 void framebuffer_size_callback(GLFWwindow*, int width, int height) {
     glViewport(0, 0, width, height);
+}
+
+// close with esc
+void processInput(GLFWwindow *window) {
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
 }
 
 int main(void) {
@@ -59,12 +66,6 @@ int main(void) {
 
 // -------------------------------------------------------------------------- //    
     
-    // triangle
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f,
-        0.0f, 0.5f, 0.0f
-    };
 
     // buffer ref id
     unsigned int VBO;
@@ -79,28 +80,25 @@ int main(void) {
     char infoLog[512];
 
    
-    // generating buffer id, binding it, and putting our vertices into the buf
-    glGenBuffers(1, &VBO);
-    glGenVertexArrays(1, &VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     
-    // generate id, compile shader  
+    // generate id, compile vertex shader  
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(vertexShader);
-    glCompileShader(fragmentShader);
     glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (success) {
+    if (!success) {
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog <<std::endl;
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
+    
+    // repeat for fragment shader
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (success) {
+    if (!success) {
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog <<std::endl;
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 
     // linking the shader 
@@ -118,19 +116,52 @@ int main(void) {
     glDeleteShader(vertexShader);
     glDeleteShader(vertexShader);
 
+    
+    // triangle
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+        0.0f, 0.5f, 0.0f
+    };
+    
+    // generating buffer id, binding it, and putting our vertices into the buf
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
     // tell opengl how to interpret the data (vertices) in the VBO
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(float), (void*)0); 
     glEnableVertexAttribArray(0);
 
+    // clear the bindings so we don't alter them by accident
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 
 
     while(!glfwWindowShouldClose(window)) {
-        glfwSwapBuffers(window);
-        glfwPollEvents();
+        // input
+        processInput(window);
+       
+        // rendering
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        // draw 
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        //draw  
+        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        glfwSwapBuffers(window);
+        glfwPollEvents();
     }
+
+    // free resources
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteProgram(shaderProgram);
 
     glfwTerminate();
     return 0;
