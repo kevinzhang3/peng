@@ -6,7 +6,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
 #define NUM_BODIES 1
 #define TIME_LIM   5
 
@@ -119,7 +118,7 @@ int main(void) {
     
     // triangle
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
+        -0.3f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.0f, 0.5f, 0.0f
     };
