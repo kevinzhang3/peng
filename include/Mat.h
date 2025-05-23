@@ -6,7 +6,7 @@
 struct Mat4 {
     float data[16];
     
-    static Mat4 identity() {
+    static inline Mat4 identity() {
         Mat4 mat = {};
         mat.data[0] = 1.0f;
         mat.data[5] = 1.0f;
@@ -15,10 +15,15 @@ struct Mat4 {
         return mat;
     };
 
-    static Mat4 translate(const Vec2& v) {
-        Mat4 mat = Mat4::identity();
+    static inline Mat4 translate(Mat4 mat, const Vec2& v) {
         mat.data[3] = v.x;
         mat.data[7] = v.y;
+        return mat;
+    }
+
+    static inline Mat4 scale(Mat4 mat, const Vec2& v) {
+        mat.data[0] = v.x;
+        mat.data[5] = v.y;
         return mat;
     }
 
