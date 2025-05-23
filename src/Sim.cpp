@@ -150,6 +150,11 @@ int main(void) {
 
         // draw 
         glUseProgram(shaderProgram);
+
+        // fall
+
+
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
