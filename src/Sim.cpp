@@ -13,9 +13,10 @@
 // GLSL (goofy)
 const char *vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
+    "uniform mat4 transform;\n"
     "void main()\n"
     "{\n"
-    "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+    "   gl_Position = transform * vec4(aPos, 1.0);\n"
     "}\0";
 
 const char *fragmentShaderSource = "#version 330 core\n"
@@ -114,12 +115,12 @@ int main(void) {
     
     // use program and delete unused shaders (no longer need)
     glDeleteShader(vertexShader);
-    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
 
     
     // triangle
     float vertices[] = {
-        -0.3f, -0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
         0.5f, -0.5f, 0.0f,
         0.0f, 0.5f, 0.0f
     };
@@ -149,12 +150,11 @@ int main(void) {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw 
-        glUseProgram(shaderProgram);
-
-        // fall
         Mat4 trans = Mat4::identity();
         trans = trans.translate(Vec2(0.5f, -0.5f));
+        
+        glUseProgram(shaderProgram);
+        
         unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
         glUniformMatrix4fv(transformLoc, 1, GL_FALSE, trans.data);
 
