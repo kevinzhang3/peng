@@ -16,24 +16,36 @@ struct Mat4 {
         return mat;
     };
 
-    static inline Mat4 translate(Mat4 mat, const Vec2& v) {
+    static inline Mat4 translate(const Vec2& v) {
+        Mat4 mat = Mat4::identity();
         mat.data[3] = v.x;
         mat.data[7] = v.y;
         return mat;
     }
 
-    static inline Mat4 scale(Mat4 mat, const Vec2& v) {
+    static inline Mat4 scale(const Vec2& v) {
+        Mat4 mat = Mat4::identity();
         mat.data[0] = v.x;
         mat.data[5] = v.y;
         return mat;
     }
 
-    static inline Mat4 rotate(Mat4 mat, float rad) {
+    static inline Mat4 rotate(float rad) {
+        Mat4 mat = Mat4::identity();
         mat.data[0] = cos(rad);
         mat.data[1] = -sin(rad);
         mat.data[4] = sin(rad);
         mat.data[5] = cos(rad);
         return mat;
+    }
+
+    static inline Mat4 transpose(Mat4 mat) {
+        Mat4 ret = {};
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                ret.data[j] = mat.data[i*4];
+            }
+        }
     }
 
     Mat4 operator * (Mat4& mat) {
