@@ -154,9 +154,9 @@ int main(void) {
 
         // fall
         Mat4 trans = Mat4::identity();
-        trans = trans.translate(Vec2(0.0f, 9.81f));
-
-
+        trans = trans.translate(Vec2(0.5f, -0.5f));
+        unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, trans.data);
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
