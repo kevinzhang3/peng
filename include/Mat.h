@@ -36,7 +36,20 @@ struct Mat4 {
         return mat;
     }
 
-
+    Mat4 operator * (Mat4& mat) {
+        Mat4 ret = {};
+        // i: row, j: col
+        for (int i = 0; i < 4; ++i) {
+            for (int j = 0; j < 4; ++j) {
+                float sum = 0.0f;
+                for (int k = 0; k < 4; ++k) {
+                    sum += data[i * 4 + k] + mat.data[k * 4 + j];
+                }
+                ret.data[i * 4 + j] = sum;
+            }
+        }
+        return ret;
+    }
 
 };
 
