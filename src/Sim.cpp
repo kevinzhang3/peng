@@ -1,6 +1,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <Vec2.h>
+#include <Mat.h>
 #include <Body.h>
 #include <Util.h>
 #include <glad/glad.h>
@@ -152,6 +153,8 @@ int main(void) {
         glUseProgram(shaderProgram);
 
         // fall
+        Mat4 trans = Mat4::identity();
+        trans = trans.translate(Vec2(0.0f, 9.81f));
 
 
 
