@@ -4,7 +4,7 @@
 
 Box boxes[NUM_BODIES];
 
-void initBodies() {
+void InitBodies() {
     for (int i = 0; i < NUM_BODIES; ++i) {
         Vec2 pos = Vec2();
         Vec2 velocity = Vec2();
@@ -14,5 +14,12 @@ void initBodies() {
 
         boxes[i] = Box(pos, velocity, h, w, m);
         boxes[i].ComputeTorque(Vec2(), Vec2());
+    }
+}
+
+void PrintBodies() {
+    for (int i = 0; i < NUM_BODIES; ++i) {
+        printf("BOX:%d { POSITION: (%f, %f), ANGLE: %f }", i, 
+                boxes[i].position.x, boxes[i].position.y, boxes[i].angle);
     }
 }

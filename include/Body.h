@@ -63,4 +63,6 @@ struct Circle : public Body {
     float radius;
 };
 
+void initBodies();
+
 #endif
