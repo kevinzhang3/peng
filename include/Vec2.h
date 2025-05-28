@@ -60,6 +60,12 @@ struct Vec2 {
         float y_n = y * val;
         return Vec2(x_n, y_n);
     }
+
+    Vec2 operator / (float val) const {
+        float x_n = x / val;
+        float y_n = y / val;
+        return Vec2(x_n, y_n);
+    }
     
     float x, y;
 };
