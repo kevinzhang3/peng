@@ -21,7 +21,7 @@ OBJS = $(CPPSRCS:src/%.cpp=build/%.o) build/glad.o
 ENGINE_OBJS = $(ENGINE_CPPSRCS:src/%.cpp=build/%.o) build/glad.o
 
 TARGET = run
-ENGINE_TARGET = eng
+ENGINE_TARGET = engine
 
 all: $(TARGET)
 
@@ -45,5 +45,5 @@ clean:
 
 .PHONY: all clean engine
 
-engine: $(ENGINE_TARGET)
+eng: $(ENGINE_TARGET)
 

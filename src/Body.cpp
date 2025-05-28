@@ -1,8 +1,7 @@
 #include <Body.h>
 
-#define NUM_BODIES 1
 
-Box boxes[NUM_BODIES];
+Box Bodies[NUM_BODIES];
 
 void InitBodies() {
     for (int i = 0; i < NUM_BODIES; ++i) {
@@ -12,14 +11,14 @@ void InitBodies() {
         float w = 1;
         float m = 1;
 
-        boxes[i] = Box(pos, velocity, h, w, m);
-        boxes[i].ComputeTorque(Vec2(), Vec2());
+        Bodies[i] = Box(pos, velocity, h, w, m);
+        Bodies[i].ComputeTorque(Vec2(), Vec2());
     }
 }
 
 void PrintBodies() {
     for (int i = 0; i < NUM_BODIES; ++i) {
-        printf("BOX:%d { POSITION: (%f, %f), ANGLE: %f }", i, 
-                boxes[i].position.x, boxes[i].position.y, boxes[i].angle);
+        printf("BODY:%d { POSITION: (%f, %f), ANGLE: %f }\n", i, 
+                Bodies[i].position.x, Bodies[i].position.y, Bodies[i].angle);
     }
 }

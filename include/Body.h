@@ -3,6 +3,8 @@
 
 #include "Vec2.h"
 
+#define NUM_BODIES 1
+
 struct Body {
     Body() {}
 
@@ -64,5 +66,6 @@ struct Circle : public Body {
 };
 
 void InitBodies();
+void PrintBodies();
 
 #endif
