@@ -16,21 +16,35 @@ struct Body {
         a_velocity = 0;
     } 
     
+    // linear stuff 
     Vec2 position;
     
     Vec2 l_velocity;
     
+    Vec2 l_accel;
+    
     Vec2 force;
     
+    // rotational stuff 
     float torque;
     
     float angle;
     
     float a_velocity;
 
+    float a_accel;
+
     float mass;
 
     float m_inertia;
+
+    Vec2 ComputeLinearAccel(Vec2 force) {
+        return force / mass;
+    }
+
+    float ComputeRotAccel(float torque) {
+        return a_accel = torque / m_inertia;
+    }
 
 };
 
@@ -50,8 +64,8 @@ struct Box : public Body {
         m_inertia = m * (w * w + h * h) / 12;
     }
 
-    void ComputeTorque(Vec2 force, Vec2 r) {
-        torque = r.x * force.y - r.y * force.x;
+    float ComputeTorque(Vec2 force, Vec2 r) {
+        return r.x * force.y - r.y * force.x;
     }
 
     float height;
