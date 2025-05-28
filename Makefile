@@ -21,7 +21,7 @@ OBJS = $(CPPSRCS:src/%.cpp=build/%.o) build/glad.o
 ENGINE_OBJS = $(ENGINE_CPPSRCS:src/%.cpp=build/%.o) build/glad.o
 
 TARGET = run
-ENGINE_TARGET = engine
+ENGINE_TARGET = eng
 
 all: $(TARGET)
 
