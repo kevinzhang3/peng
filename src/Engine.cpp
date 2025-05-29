@@ -1,6 +1,7 @@
 #include <Body.h>
 #include <Vec2.h>
 #include <unistd.h>
+#include <iostream>
 
 extern Box Bodies[NUM_BODIES];
 
@@ -40,6 +41,7 @@ int main() {
             // same for rotation (but luckily they are not vectors lol)
             body->a_velocity += body->a_accel * dt;
             body->angle += body->a_velocity * dt;
+            std::cout << body->angle << std::endl;            
 
         }
         
