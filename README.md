@@ -1,5 +1,5 @@
 # Peng
-A rigid body physics engine written in C++.
+A 2D rigid body physics engine written in C++.
 
 ### TODO:
 * Collisions
