@@ -7,9 +7,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#define NUM_BODIES 1
-#define TIME_LIM   5
-
 // GLSL (goofy)
 const char *vertexShaderSource = "#version 330 core\n"
     "layout (location = 0) in vec3 aPos;\n"
@@ -25,8 +22,6 @@ const char *fragmentShaderSource = "#version 330 core\n"
     "{\n"
     "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);"
     "}\0";
-
-Body bodies[NUM_BODIES];
 
 // for dynamically resizing the window
 void framebuffer_size_callback(GLFWwindow*, int width, int height) {
@@ -152,11 +147,12 @@ int main(void) {
 
         Mat4 trans = Mat4::identity();
         trans = trans.translate(Vec2(0.5f, -0.5f));
-        
+        Mat4 oglMatrix = Mat4::transpose(trans); 
+
         glUseProgram(shaderProgram);
         
         unsigned int transformLoc = glGetUniformLocation(shaderProgram, "transform");
-        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, trans.data);
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, oglMatrix.data);
 
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);

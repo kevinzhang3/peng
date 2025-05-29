@@ -55,7 +55,7 @@ struct Mat4 {
         for (int i = 0; i < 4; ++i) {
             for (int j = 0; j < 4; ++j) {
                 for (int k = 0; k < 4; ++k) {
-                    ret.data[i * 4 + j] += data[i * 4 + k] + mat.data[k * 4 + j]; 
+                    ret.data[i * 4 + j] += data[i * 4 + k] * mat.data[k * 4 + j]; 
                 }
             }
         }
