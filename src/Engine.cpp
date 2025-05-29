@@ -25,7 +25,7 @@ int main() {
            
             // set force and acceleration for linear and angular
             body->force = gravityForce;
-            body->torque = body->ComputeTorque(gravityForce, Vec2()); // apply gravity at centre of mass
+            body->torque = body->ComputeTorque(gravityForce, Vec2(body->width/2, body->height/2)); // apply gravity at centre of mass
             body->l_accel = body->ComputeLinearAccel(body->force);
             body->a_accel = body->ComputeRotAccel(body->torque);
 
@@ -41,8 +41,6 @@ int main() {
             // same for rotation (but luckily they are not vectors lol)
             body->a_velocity += body->a_accel * dt;
             body->angle += body->a_velocity * dt;
-            std::cout << body->angle << std::endl;            
-
         }
         
         PrintBodies(); 
