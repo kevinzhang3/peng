@@ -17,8 +17,8 @@ int main() {
         for (int i = 0; i < NUM_BODIES; ++i) {
             Box *body = &Bodies[i];
             Vec2 gravityForce = Vec2(0, 9.81*body->mass);
-
-
+            
+            body->force += gravityForce;
             body->torque = body->ComputeTorque(gravityForce, Vec2()); // apply gravity at centre of mass
             body->l_accel = body->ComputeLinearAccel(body->force);
             
@@ -31,13 +31,13 @@ int main() {
             body->position += newPos;
 
             // same for rotation (but luckily they are not vectors lol)
-            body->a_velocity = body->a_accel * dt;
-            body->angle = body->a_velocity * dt;
+            body->a_velocity += body->a_accel * dt;
+            body->angle += body->a_velocity * dt;
 
         }
         PrintBodies(); 
         currTime += dt;
-        sleep(step);
+        usleep(step);
     }
 
 }

@@ -27,41 +27,44 @@ struct Vec2 {
     /* define the operators on Vec2 data type */
     
     /* compound assignment */
-    void operator -= (Vec2& vec) {
+    Vec2& operator -= (const Vec2& vec) {
         x -= vec.x;
         y -= vec.y;
+        return *this;
     }
     
-    void operator += (Vec2& vec) {
+    Vec2& operator += (const Vec2& vec) {
         x += vec.x;
         y += vec.y;
+        return *this;
     }
     
-    void operator *= (float val) {
+    Vec2& operator *= (const float val) {
         x *= val;
         y *= val;
+        return *this;
     }
 
     /* normal arithmetic */
-    Vec2 operator - (Vec2& vec) const {
+    Vec2 operator - (const Vec2& vec) const {
         float x_n = x - vec.x;
         float y_n = y - vec.y;
         return Vec2(x_n, y_n);
     }
     
-    Vec2 operator + (Vec2& vec) const {
+    Vec2 operator + (const Vec2& vec) const {
         float x_n = x + vec.x;
         float y_n = y + vec.y;
         return Vec2(x_n, y_n);
     }
 
-    Vec2 operator * (float val) const {
+    Vec2 operator * (const float val) const {
         float x_n = x * val;
         float y_n = y * val;
         return Vec2(x_n, y_n);
     }
 
-    Vec2 operator / (float val) const {
+    Vec2 operator / (const float val) const {
         float x_n = x / val;
         float y_n = y / val;
         return Vec2(x_n, y_n);
