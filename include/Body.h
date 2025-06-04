@@ -62,22 +62,23 @@ struct Box : public Body {
         a_velocity = 0;
         com = 0;
         m_inertia = m * (w * w + h * h) / 12;
-        
+    }
+
+    float ComputeTorque(Vec2 force, Vec2 r) {
+        return r.x * force.y - r.y * force.x;
+    }
+
+    void ComputeCorner(Vec2* corner) {
         corner[0] = Vec2(position.x - width/2, position.y + height/2); 
         corner[1] = Vec2(position.x + width/2, position.y + height/2); 
         corner[2] = Vec2(position.x - width/2, position.y - height/2); 
         corner[3] = Vec2(position.x + width/2, position.y - height/2); 
-    
         /*
          *  1-------2
          *  |       |
          *  |       |
          *  3-------4
          */
-    }
-
-    float ComputeTorque(Vec2 force, Vec2 r) {
-        return r.x * force.y - r.y * force.x;
     }
 
     float height;
