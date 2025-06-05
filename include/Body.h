@@ -68,17 +68,29 @@ struct Box : public Body {
         return r.x * force.y - r.y * force.x;
     }
 
+    /*
+     *  0-------1
+     *  |       |
+     *  |       |
+     *  2-------3
+     */
     void ComputeCorner(Vec2* corner) {
         corner[0] = Vec2(position.x - width/2, position.y + height/2); 
         corner[1] = Vec2(position.x + width/2, position.y + height/2); 
         corner[2] = Vec2(position.x - width/2, position.y - height/2); 
-        corner[3] = Vec2(position.x + width/2, position.y - height/2); 
-        /*
-         *  1-------2
-         *  |       |
-         *  |       |
-         *  3-------4
-         */
+        corner[3] = Vec2(position.x + width/2, position.y - height/2);         
+
+        corner[0].x = corner[0].x * cos(angle) - corner[0].y * sin(angle);
+        corner[0].y = corner[0].y * cos(angle) + corner[0].x * sing(angle);
+        
+        corner[1].x = corner[1].x * cos(angle) - corner[1].y * sin(angle);
+        corner[1].y = corner[1].y * cos(angle) + corner[1].x * sing(angle);
+        
+        corner[2].x = corner[2].x * cos(angle) - corner[2].y * sin(angle);
+        corner[2].y = corner[2].y * cos(angle) + corner[2].x * sing(angle);
+        
+        corner[3].x = corner[3].x * cos(angle) - corner[3].y * sin(angle);
+        corner[3].y = corner[3].y * cos(angle) + corner[3].x * sing(angle);
     }
 
     float height;
