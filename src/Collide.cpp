@@ -1,9 +1,9 @@
 #include <Body.h>
 #include <Util.h>
 
-int DetectCollision(Body& body) {
-    // if collision
-    return 0;
+int DetectCollisionBox(Box& boxA, Box& boxB) {
+    boxA.ComputeCorner();
+    boxB.ComputeCorner();
 }
 
 int CollideBody(Body& bodyA, Body& bodyB) {
